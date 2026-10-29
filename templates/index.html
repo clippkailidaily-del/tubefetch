@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +9,15 @@
 <body>
   <header>
     <div class="logo">▶ Tube<span>Fetch</span></div>
-    <p class="tagline">YouTube video ko MP4 ya MP3 mein download karo — free, bina sign-up</p>
+    <p class="tagline">Download YouTube videos as MP4 or MP3 — free, no sign-up</p>
   </header>
 
   <main>
     <section class="card">
-      <label for="url">YouTube video ka link yahan paste karo</label>
+      <label for="url">Paste a YouTube video link here</label>
       <div class="row">
         <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off">
-        <button id="fetchBtn" onclick="fetchInfo()">Video Lao</button>
+        <button id="fetchBtn" onclick="fetchInfo()">Get Video</button>
       </div>
       <p id="error" class="error" hidden></p>
 
@@ -38,15 +38,15 @@
     </section>
 
     <section class="steps">
-      <div><strong>1.</strong> YouTube se link copy karo</div>
-      <div><strong>2.</strong> Upar paste karke “Video Lao” dabao</div>
-      <div><strong>3.</strong> Quality chuno aur Download karo</div>
+      <div><strong>1.</strong> Copy the link from YouTube</div>
+      <div><strong>2.</strong> Paste it above and click “Get Video”</div>
+      <div><strong>3.</strong> Choose a quality and hit Download</div>
     </section>
 
-    <p class="note">Note: Sirf wahi videos download karo jo tumhare khud ke hain, ya Creative Commons / public domain hain, ya jinke liye tumhare paas permission hai. Creators ke copyright ka samman karo.</p>
+    <p class="note">Note: Please only download videos that you own, or that are Creative Commons / public domain, or that you otherwise have permission to download. Respect creators' copyright.</p>
   </main>
 
-  <footer>TubeFetch — apne videos ke liye banaya gaya tool</footer>
+  <footer>TubeFetch — made for downloading your own videos</footer>
 <script src="/static/app.js"></script>
 </body>
 </html>
