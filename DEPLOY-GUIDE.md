@@ -1,44 +1,32 @@
-# TubeFetch ko Live Karne ki Guide (Render — Free)
+# How to Put TubeFetch Live (Render — Free)
 
-Code poora taiyaar aur test kiya hua hai. Live karne ke liye sirf 2 account chahiye:
-**GitHub** (code rakhne ke liye) aur **Render** (website chalane ke liye) — dono free hain.
-Poora kaam lagbhag 15-20 minute ka hai, phone se bhi ho sakta hai, computer se aasan rahega.
+The code is fully ready and tested. Going live needs only 2 free accounts:
+**GitHub** (to hold the code) and **Render** (to run the website).
+The whole thing takes about 15-20 minutes.
 
-## Step 1 — Code GitHub par daalo
-1. github.com par account banao / login karo
-2. Upar right mein **+ → New repository** → naam do: `tubefetch` → **Create repository**
-3. Repo ke page par **uploading an existing file** par click karo
-4. Jo ZIP file mili hai (tubefetch-deploy.zip) use pehle kholo/extract karo, phir uske andar ki
-   **saari files aur folders** browser mein drag karke upload karo
-   (Dhyan: `.venv` folder ZIP mein hai hi nahi — wo chahiye bhi nahi)
-5. Neeche **Commit changes** dabao
+## Step 1 — Put the code on GitHub
+1. Create an account / log in at github.com
+2. Top right: **+ → New repository** → name it `tubefetch` → **Create repository**
+3. On the repo page, click **uploading an existing file**
+4. Extract the ZIP (tubefetch-deploy.zip) first, then upload **all the files and folders** inside it
+   (the `.venv` folder is not in the ZIP — it is not needed)
+5. Click **Commit changes**
 
-Files ye honi chahiye repo mein: app.py, requirements.txt, Dockerfile, render.yaml,
+The repo should contain: app.py, requirements.txt, Dockerfile, render.yaml,
 templates/index.html, static/style.css, static/app.js, README.md
 
-## Step 2 — Render par live karo
-1. render.com par **Get Started** → **GitHub se sign up** karo (wahi GitHub account)
-2. Dashboard mein **New → Web Service**
-3. Apna `tubefetch` repo chuno (pehli baar Render ko GitHub access dena padega — Allow kar do)
-4. Render Dockerfile khud pehchan lega — kuch settings badalne ki zarurat nahi,
-   Plan mein **Free** chuno
-5. **Create Web Service** dabao — pehli build mein 5-10 minute lagege (ffmpeg + libraries install hongi)
-6. Build khatm hote hi upar tumhari live website ka link milega, kuch aisa:
+## Step 2 — Go live on Render
+1. Sign up at render.com **with GitHub**
+2. In the dashboard: **New → Web Service**
+3. Choose your `tubefetch` repo (the first time, Render will ask for GitHub access — allow it)
+4. Render detects the Dockerfile automatically — no settings to change. Choose the **Free** plan
+5. Click **Create Web Service** — the first build takes 5-10 minutes (ffmpeg and the libraries get installed)
+6. When the build finishes, your live website address appears at the top, something like:
    `https://tubefetch-xxxx.onrender.com`
-   Wahi link asli hai — wahi sabko khulega, phone par bhi.
+   That is the real link — it opens for everyone, on phones too.
 
-## Live hone ke baad jaan-ne wali baatein
-- **Free plan sota hai:** 15 minute koi na aaye to server so jata hai. Agla visitor aane par
-  pehla page khulne mein 30-60 second lagte hain — ye free plan ki aadat hai, kharabi nahi.
-- **Badi HD files mein time lagega:** Server pehle poori video apne paas download karke merge
-  karta hai, phir user ko bhejta hai. 4K / lambi videos mein sabr rakhna — chhoti videos tez hongi.
-- **Kabhi YouTube block kare to:** Server ke IP ko YouTube kabhi-kabhi rok deta hai. Aise mein
-  aksar yt-dlp update karne se theek hota hai — repo mein requirements.txt ki yt-dlp wali line
-  hata kar Render par **Manual Deploy** karne se naya version aa jayega. Muse ko bolna, wo bata dega.
-- **Copyright:** Site ko sirf apne khud ke / Creative Commons / permission wale videos ke liye
-  promote karna. Isi liye page par ye note pehle se laga hai.
-
-## Muse ko kya chahiye hoga
-- Tum bas Step 1 aur Step 2 ke accounts bana lo — koi page atak jaye to screenshot / error
-  yahin bhej dena, main bata dunga kya click karna hai.
-- Password / OTP Muse ko mat bhejna — login hamesha khud karna.
+## Good to know after going live
+- **The free plan sleeps:** if nobody visits for 15 minutes, the server goes to sleep. The next visitor's first page load takes 30-60 seconds — that is normal free-plan behavior, not a bug.
+- **Large HD files take time:** the server first downloads the whole video, merges it, then sends it to the user. Long / 4K videos need patience; short videos are fast.
+- **If YouTube blocks it someday:** YouTube sometimes blocks server IPs. Updating yt-dlp usually fixes it — remove/re-add the yt-dlp line in requirements.txt and use **Manual Deploy** on Render to rebuild.
+- **Copyright:** Promote the site only for your own / Creative Commons / permitted videos. That is why the note is already on the page.

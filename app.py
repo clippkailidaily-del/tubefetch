@@ -62,20 +62,20 @@ def home():
 @app.post("/api/info")
 def video_info():
     if yt_dlp is None:
-        return jsonify({"error": "Server par yt-dlp install nahi hai. requirements.txt install karo."}), 500
+        return jsonify({"error": "yt-dlp is not installed on the server. Install the packages in requirements.txt."}), 500
 
     data = request.get_json(force=True, silent=True) or {}
     url = clean_url(data.get("url", ""))
 
     if not url or not is_youtube_url(url):
-        return jsonify({"error": "Sahi YouTube link daalo (youtube.com ya youtu.be wala)."}), 400
+        return jsonify({"error": "Please enter a valid YouTube link (youtube.com or youtu.be)."}), 400
 
     ydl_opts = {"quiet": True, "no_warnings": True, "noplaylist": True}
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
     except Exception as exc:
-        return jsonify({"error": f"Video ki info nahi mili: {exc}"}), 422
+        return jsonify({"error": f"Could not fetch video info: {exc}"}), 422
 
     heights = sorted(
         {
@@ -102,14 +102,14 @@ def video_info():
 @app.post("/api/download")
 def download():
     if yt_dlp is None:
-        return jsonify({"error": "Server par yt-dlp install nahi hai. requirements.txt install karo."}), 500
+        return jsonify({"error": "yt-dlp is not installed on the server. Install the packages in requirements.txt."}), 500
 
     data = request.get_json(force=True, silent=True) or {}
     url = clean_url(data.get("url", ""))
     quality = str(data.get("quality", "720"))
 
     if not url or not is_youtube_url(url):
-        return jsonify({"error": "Sahi YouTube link daalo (youtube.com ya youtu.be wala)."}), 400
+        return jsonify({"error": "Please enter a valid YouTube link (youtube.com or youtu.be)."}), 400
 
     job_id = uuid.uuid4().hex[:12]
     job_dir = os.path.join(DOWNLOAD_DIR, job_id)
@@ -145,12 +145,12 @@ def download():
             ydl.download([url])
     except Exception as exc:
         shutil.rmtree(job_dir, ignore_errors=True)
-        return jsonify({"error": f"Download fail ho gaya: {exc}"}), 422
+        return jsonify({"error": f"Download failed: {exc}"}), 422
 
     files = [os.path.join(job_dir, f) for f in os.listdir(job_dir) if not f.endswith(".part")]
     if not files:
         shutil.rmtree(job_dir, ignore_errors=True)
-        return jsonify({"error": "Download fail ho gaya: file bani hi nahi."}), 422
+        return jsonify({"error": "Download failed: no file was produced."}), 422
 
     file_path = max(files, key=os.path.getsize)
     download_name = re.sub(r'[\\/:*?"<>|]', "_", os.path.basename(file_path))

@@ -1,8 +1,8 @@
 # TubeFetch — YouTube Video Downloader Website
 
-Link paste karo → video ki info + thumbnail dekho → quality chuno (144p se 4K tak jo available ho, ya MP3) → download.
+Paste a link → see the video's info and thumbnail → choose a quality (144p up to 4K, whatever is available, or MP3) → download.
 
-## Apne computer par chalana
+## Run it on your own computer
 
 ```bash
 cd youtube-downloader
@@ -12,24 +12,24 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Browser mein kholo: http://localhost:5000
+Open in your browser: http://localhost:5000
 
-Zaruri: system par **ffmpeg** install hona chahiye (HD video + audio merge aur MP3 ke liye).
+Required: **ffmpeg** must be installed on the system (for merging HD video + audio and for MP3 conversion).
 Ubuntu/Debian: `sudo apt install ffmpeg` — Mac: `brew install ffmpeg`
 
-## Internet par live karna (hosting)
+## Put it live on the internet (hosting)
 
-Ye ek Python (Flask) app hai, isliye GitHub Pages / Netlify jaisi static hosting par nahi chalegi. Options:
-- **Render / Railway / PythonAnywhere** — repo push karo, start command: `python app.py` (PORT env ye khud use kar leta hai)
-- **Apna VPS** — gunicorn ke saath: `gunicorn -w 2 -b 0.0.0.0:5000 app:app`
+This is a Python (Flask) app, so it cannot run on static hosting like GitHub Pages / Netlify. Options:
+- **Render / Railway / PythonAnywhere** — push the repo, start command: `python app.py` (it uses the PORT env var automatically), or deploy with the included Dockerfile
+- **Your own VPS** — with gunicorn: `gunicorn -w 2 -b 0.0.0.0:5000 app:app`
 
-Hosting par disk temporary hoti hai — download ki hui file user ko bhejkar server se turant delete ho jati hai (app.py mein yahi setup hai).
+Hosting disks are temporary — each downloaded file is deleted from the server right after it is sent to the user (that is how app.py is set up).
 
 ## Files
-- `app.py` — backend (info + download APIs, sirf youtube.com / youtu.be links allow hain)
-- `templates/index.html` — page
+- `app.py` — backend (info + download APIs; only youtube.com / youtu.be links are allowed)
+- `templates/index.html` — the page
 - `static/style.css`, `static/app.js` — design + frontend logic
 
-## Dhyan do
-- Sirf apne khud ke, Creative Commons, ya permission wale videos download karo. Dusron ke copyright videos ko re-upload / bechna galat hai.
-- YouTube kabhi-kabhi apni taraf se extractor block karta hai; tab `pip install -U yt-dlp` se update karna padta hai.
+## Please note
+- Only download videos that you own, that are Creative Commons, or that you have permission for. Re-uploading or selling other people's copyrighted videos is not allowed.
+- YouTube occasionally blocks extractors; when that happens, updating yt-dlp (`pip install -U yt-dlp`) usually fixes it.
