@@ -10,10 +10,10 @@ async function fetchInfo() {
   showError("");
   $("status").textContent = "";
   const url = $("url").value.trim();
-  if (!url) { showError("Pehle YouTube ka link paste karo."); return; }
+  if (!url) { showError("Please paste a YouTube link first."); return; }
 
   const btn = $("fetchBtn");
-  btn.disabled = true; btn.textContent = "Loding...";
+  btn.disabled = true; btn.textContent = "Loading...";
   try {
     const res = await fetch("/api/info", {
       method: "POST",
@@ -21,7 +21,7 @@ async function fetchInfo() {
       body: JSON.stringify({ url }),
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Kuch galat ho gaya.");
+    if (!res.ok) throw new Error(data.error || "Something went wrong.");
 
     $("thumb").src = data.thumbnail || "";
     $("title").textContent = data.title || "";
@@ -40,7 +40,7 @@ async function fetchInfo() {
       sel.appendChild(opt);
     });
     const audio = document.createElement("option");
-    audio.value = "audio"; audio.textContent = "MP3 — sirf audio";
+    audio.value = "audio"; audio.textContent = "MP3 — audio only";
     sel.appendChild(audio);
 
     $("result").hidden = false;
@@ -48,7 +48,7 @@ async function fetchInfo() {
     showError(e.message);
     $("result").hidden = true;
   } finally {
-    btn.disabled = false; btn.textContent = "Video Lao";
+    btn.disabled = false; btn.textContent = "Get Video";
   }
 }
 
@@ -58,7 +58,7 @@ async function startDownload() {
   const quality = $("quality").value;
   const btn = $("downloadBtn");
   btn.disabled = true;
-  $("status").textContent = "Server video taiyaar kar raha hai... HD quality mein thoda time lag sakta hai, page band mat karna.";
+  $("status").textContent = "The server is preparing your video... HD quality can take a little while — please keep this page open.";
   try {
     const res = await fetch("/api/download", {
       method: "POST",
@@ -67,7 +67,7 @@ async function startDownload() {
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || "Download fail ho gaya.");
+      throw new Error(data.error || "Download failed.");
     }
     const blob = await res.blob();
     const disp = res.headers.get("Content-Disposition") || "";
@@ -77,7 +77,7 @@ async function startDownload() {
     a.download = match ? decodeURIComponent(match[1]) : "video.mp4";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-    $("status").textContent = "Download shuru ho gaya ✅ Apne Downloads folder mein check karo.";
+    $("status").textContent = "Download started ✅ Check your Downloads folder.";
   } catch (e) {
     showError(e.message);
     $("status").textContent = "";
