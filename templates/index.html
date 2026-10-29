@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TubeFetch — YouTube Video Downloader</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">▶ Tube<span>Fetch</span></div>
+    <p class="tagline">YouTube video ko MP4 ya MP3 mein download karo — free, bina sign-up</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <label for="url">YouTube video ka link yahan paste karo</label>
+      <div class="row">
+        <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off">
+        <button id="fetchBtn" onclick="fetchInfo()">Video Lao</button>
+      </div>
+      <p id="error" class="error" hidden></p>
+
+      <div id="result" hidden>
+        <div class="video">
+          <img id="thumb" alt="Video thumbnail">
+          <div>
+            <h2 id="title"></h2>
+            <p id="meta" class="meta"></p>
+          </div>
+        </div>
+        <div class="row">
+          <select id="quality" aria-label="Quality"></select>
+          <button id="downloadBtn" onclick="startDownload()">Download</button>
+        </div>
+        <p id="status" class="status"></p>
+      </div>
+    </section>
+
+    <section class="steps">
+      <div><strong>1.</strong> YouTube se link copy karo</div>
+      <div><strong>2.</strong> Upar paste karke “Video Lao” dabao</div>
+      <div><strong>3.</strong> Quality chuno aur Download karo</div>
+    </section>
+
+    <p class="note">Note: Sirf wahi videos download karo jo tumhare khud ke hain, ya Creative Commons / public domain hain, ya jinke liye tumhare paas permission hai. Creators ke copyright ka samman karo.</p>
+  </main>
+
+  <footer>TubeFetch — apne videos ke liye banaya gaya tool</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
